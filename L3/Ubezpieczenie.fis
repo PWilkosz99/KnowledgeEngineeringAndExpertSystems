@@ -1,0 +1,44 @@
+[System]
+Name='Ex11'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=4
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='kierowca'
+Range=[20 60]
+NumMFs=3
+MF1='mlody':'trapmf',[20 20 30 40]
+MF2='sredni':'trimf',[30 40 50]
+MF3='stary':'trapmf',[40 50 60 60]
+
+[Input2]
+Name='moc_samochodu'
+Range=[20 220]
+NumMFs=3
+MF1='mala':'trapmf',[20 20 70 120]
+MF2='srednia':'trimf',[70 120 170]
+MF3='duza':'trapmf',[120 170 220 220]
+
+[Output1]
+Name='ryzyko'
+Range=[0 30]
+NumMFs=5
+MF1='niskie':'trapmf',[0 0 5 10]
+MF2='sr_nis':'trimf',[5 10 15]
+MF3='srednie':'trimf',[10 15 20]
+MF4='sr_wys':'trimf',[15 20 25]
+MF5='wysokie':'trapmf',[20 25 30 30]
+
+[Rules]
+1 3, 5 (1) : 1
+1 2, 4 (1) : 1
+2 3, 4 (1) : 1
+2 2, 3 (1) : 1
