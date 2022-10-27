@@ -1,0 +1,33 @@
+[System]
+Name='SISO'
+Type='sugeno'
+Version=2.0
+NumInputs=1
+NumOutputs=1
+NumRules=3
+AndMethod='prod'
+OrMethod='probor'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='x'
+Range=[-10 10]
+NumMFs=3
+MF1='s':'trapmf',[-10 -10 -4 -4]
+MF2='m':'trapmf',[-4 -4 4 4]
+MF3='l':'trapmf',[4 4 10 10]
+
+[Output1]
+Name='y'
+Range=[-10 10]
+NumMFs=3
+MF1='y1':'linear',[0.1 6.4]
+MF2='y2':'linear',[-0.5 4]
+MF3='y3':'linear',[1 -2]
+
+[Rules]
+1, 1 (1) : 1
+2, 2 (1) : 1
+3, 3 (1) : 1

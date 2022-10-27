@@ -1,0 +1,38 @@
+[System]
+Name='3-2'
+Type='sugeno'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=2
+AndMethod='min'
+OrMethod='probor'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='x1'
+Range=[0 100]
+NumMFs=2
+MF1='MALE':'trimf',[0 0 100]
+MF2='DUZE':'trimf',[0 100 100]
+
+[Input2]
+Name='x2'
+Range=[0 200]
+NumMFs=3
+MF1='MALE':'trapmf',[0 0 20 100]
+MF2='SREDNIE':'trimf',[20 100 180]
+MF3='DUZE':'trapmf',[100 180 200 200]
+
+[Output1]
+Name='y'
+Range=[0 200]
+NumMFs=2
+MF1='y1':'linear',[2 -1 2]
+MF2='y2':'linear',[4 -1 0]
+
+[Rules]
+2 2, 1 (1) : 1
+1 1, 2 (1) : 1
