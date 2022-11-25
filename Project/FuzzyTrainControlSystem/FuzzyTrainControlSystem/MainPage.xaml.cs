@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -102,22 +103,34 @@ namespace FuzzyTrainControlSystem
 
             var result = fuzzyEngine.Defuzzify(new { Dlugosc_hamowania = 500.0, Predkosc_poprzedzajacego = 100.0, Odleglosc_poprzedzajacego = 5000.0 });
 
-            tb_result.Text = result.ToString();
+            txt_result.Text = result.ToString();
         }
 
-        private void btn_calculate_Click(object sender, RoutedEventArgs e)
+        private async void btn_calculate_Click(object sender, RoutedEventArgs e)
         {
-            //tb_result.Text = txt_weight.Text;
-            Debug.WriteLine(txt_weight.Text);
-            Debug.WriteLine(txt_brake_weight_perc.Text);
-            Debug.WriteLine(txt_humidity.Text);
-            Debug.WriteLine(txt_predecessor_distance.Text);
-            Debug.WriteLine(txt_predecessor_speed.Text);
+            try
+            {
+                var weight = double.Parse(tb_weight.Text);
+                var brake_weight_perc = double.Parse(tb_brake_weight_perc.Text);
+                var humidity = double.Parse(tb_humidity.Text);
+
+                var breakingRange = calculateBreakingRange(weight, brake_weight_perc, humidity);
+                Debug.WriteLine(breakingRange);
+
+                var predecessor_distance = double.Parse(tb_predecessor_distance.Text);
+                var predecessor_speed = double.Parse(tb_predecessor_speed.Text);
+
+            }
+            catch
+            {
+                var messageDialog = new MessageDialog("Prowadzono niepoprawne dane");
+                await messageDialog.ShowAsync();
+            }
         }
 
-        public int calculateBreakingRange()
+        public double calculateBreakingRange(double weight, double bwp, double humidity)
         {
-            return 1;
+            return (bwp/100)*weight*(humidity/100);
         }
     }
 }
