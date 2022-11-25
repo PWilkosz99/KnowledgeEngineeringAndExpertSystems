@@ -26,6 +26,8 @@ namespace FuzzyTrainControlSystem
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        IFuzzyEngine fuzzyEngine;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -40,7 +42,7 @@ namespace FuzzyTrainControlSystem
             var dh_dluga = dlugosc_hamowania.MembershipFunctions.AddTrapezoid("Dluga", 600, 900, 1000, 1000);
 
             var predkosc_poprzedzajacego = new LinguisticVariable("Predkosc_poprzedzajacego");
-            var pp_niska = predkosc_poprzedzajacego.MembershipFunctions.AddTrapezoid("Niska", 0, 0, 500, 700);
+            var pp_niska = predkosc_poprzedzajacego.MembershipFunctions.AddTrapezoid("Niska", 0, 0, 50, 70);
             var pp_srednia = predkosc_poprzedzajacego.MembershipFunctions.AddTriangle("Srednia", 55, 95, 135);
             var pp_wysoka = predkosc_poprzedzajacego.MembershipFunctions.AddTrapezoid("Wysoka", 120, 165, 200, 200);
 
@@ -51,17 +53,18 @@ namespace FuzzyTrainControlSystem
             var od_bardzo_duza = odleglosc_poprzedzajacego.MembershipFunctions.AddTrapezoid("Bardzo duza", 3500, 4000, 5000, 5000);
 
             var predkosc_pojazdu = new LinguisticVariable("Predkosc_pojazdu");
-            var pr_stop = predkosc_pojazdu.MembershipFunctions.AddTriangle("Stop", 0, 0, 0);
-            var pr_niska = predkosc_pojazdu.MembershipFunctions.AddTrapezoid("Niska", 0, 0, 30, 50);
+            var pr_stop = predkosc_pojazdu.MembershipFunctions.AddTriangle("Stop", 0, 5, 5);
+            var pr_niska = predkosc_pojazdu.MembershipFunctions.AddTrapezoid("Niska", 5, 5, 30, 50);
             var pr_srednia = predkosc_pojazdu.MembershipFunctions.AddTrapezoid("Srednia", 30, 50, 70, 90);
             var pr_wysoka = predkosc_pojazdu.MembershipFunctions.AddTrapezoid("Wysoka", 80, 100, 140, 160);
             var pr_bardzo_wysoka = predkosc_pojazdu.MembershipFunctions.AddTrapezoid("Bardzo Wysoka", 140, 160, 200, 200);
 
-            IFuzzyEngine fuzzyEngine = new FuzzyEngineFactory().Default();
+            fuzzyEngine = new FuzzyEngineFactory().Default();
 
             FuzzyRule[] rules =
             {
                 Rule.If(dlugosc_hamowania.Is(dh_krotka).And(predkosc_poprzedzajacego.Is(pp_niska)).And(odleglosc_poprzedzajacego.Is(od_niska))).Then(predkosc_pojazdu.Is(pr_niska)),
+
                 Rule.If(dlugosc_hamowania.Is(dh_srednia).And(predkosc_poprzedzajacego.Is(pp_niska)).And(odleglosc_poprzedzajacego.Is(od_niska))).Then(predkosc_pojazdu.Is(pr_stop)),
                 Rule.If(dlugosc_hamowania.Is(dh_dluga).And(predkosc_poprzedzajacego.Is(pp_niska)).And(odleglosc_poprzedzajacego.Is(od_niska))).Then(predkosc_pojazdu.Is(pr_stop)),
                 Rule.If(dlugosc_hamowania.Is(dh_krotka).And(predkosc_poprzedzajacego.Is(pp_srednia)).And(odleglosc_poprzedzajacego.Is(od_niska))).Then(predkosc_pojazdu.Is(pr_niska)),
@@ -101,9 +104,6 @@ namespace FuzzyTrainControlSystem
 
             fuzzyEngine.Rules.Add(rules);
 
-            var result = fuzzyEngine.Defuzzify(new { Dlugosc_hamowania = 500.0, Predkosc_poprzedzajacego = 100.0, Odleglosc_poprzedzajacego = 5000.0 });
-
-            txt_result.Text = result.ToString();
         }
 
         private async void btn_calculate_Click(object sender, RoutedEventArgs e)
@@ -120,6 +120,9 @@ namespace FuzzyTrainControlSystem
                 var predecessor_distance = double.Parse(tb_predecessor_distance.Text);
                 var predecessor_speed = double.Parse(tb_predecessor_speed.Text);
 
+                var result = fuzzyEngine.Defuzzify(new { Dlugosc_hamowania = breakingRange, Predkosc_poprzedzajacego = predecessor_speed, Odleglosc_poprzedzajacego = predecessor_distance });
+
+                txt_result.Text = Math.Round(result).ToString();
             }
             catch
             {
@@ -130,7 +133,7 @@ namespace FuzzyTrainControlSystem
 
         public double calculateBreakingRange(double weight, double bwp, double humidity)
         {
-            return (bwp/100)*weight*(humidity/100);
+            return (((bwp / 100) * weight) / 100) - (((bwp / 100) * weight) / 100) * (humidity / 100) * 0.2;
         }
     }
 }

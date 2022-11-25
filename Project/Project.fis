@@ -7,16 +7,16 @@ NumOutputs=1
 NumRules=36
 AndMethod='min'
 OrMethod='max'
-ImpMethod='min'
+ImpMethod='prod'
 AggMethod='max'
 DefuzzMethod='centroid'
 
 [Input1]
-Name='Długość_hamowania'
+Name='Droga_hamowania'
 Range=[0 1000]
 NumMFs=3
 MF1='Krótka':'trapmf',[0 0 150 400]
-MF2='Średnia':'trimf',[252.645502645503 502.645502645503 802.645502645503]
+MF2='Średnia':'trimf',[250 500 800]
 MF3='Długa':'trapmf',[600 900 1000 1000]
 
 [Input2]

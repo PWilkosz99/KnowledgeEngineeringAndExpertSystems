@@ -18,10 +18,15 @@
         <TextBox x:Name="tb_weight" HorizontalAlignment="Left" Margin="123,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Masa pojazdu" FontFamily="Lucida Bright" FontSize="24"/>
         <TextBox x:Name="tb_humidity" HorizontalAlignment="Left" Margin="680,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Wilgotność powietrza" FontFamily="Lucida Bright" FontSize="24"/>
         <TextBox x:Name="tb_brake_weight_perc" HorizontalAlignment="Left" Margin="393,564,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Procent masy hamującej" FontFamily="Lucida Bright" FontSize="20"/>
-        <TextBox x:Name="tb_predecessor_speed" HorizontalAlignment="Left" Margin="952,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Prędkość poprzednika" FontFamily="Lucida Bright" FontSize="24"/>
+        <TextBox x:Name="tb_predecessor_speed" HorizontalAlignment="Left" Margin="952,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Prędkość poprzednika" FontFamily="Lucida Bright" FontSize="22"/>
         <TextBox x:Name="tb_predecessor_distance" HorizontalAlignment="Left" Margin="1223,564,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="70" Width="160" Background="#66000000" PlaceholderText="Odległość do poprzednika" FontFamily="Lucida Bright" FontSize="20"/>
         <Button x:Name="btn_calculate" Content="OBLICZ" Margin="481,711,0,0" VerticalAlignment="Top" Height="97" Width="559" Click="btn_calculate_Click" Background="#33120000" FontFamily="Lucida Bright" FontSize="72" Opacity="0.99"/>
         <TextBlock x:Name="txt_result" TextWrapping="Wrap" Text="0" Margin="288,294,249,522" FontFamily="Lucida Bright" FontSize="72" FontWeight="Bold" FontStyle="Normal" LineHeight="11" TextAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Margin="568,166,0,0" TextWrapping="Wrap" Text="Zalecana prędkość:" VerticalAlignment="Top" FontFamily="Lucida Bright" FontSize="48"/>
+        <TextBlock HorizontalAlignment="Left" Margin="540,159,0,0" TextWrapping="Wrap" Text="Zalecana prędkość:" VerticalAlignment="Top" FontFamily="Lucida Bright" FontSize="48"/>
+        <TextBlock HorizontalAlignment="Left" Margin="146,539,0,0" TextWrapping="Wrap" Text="Masa pojazdu" VerticalAlignment="Top" FontSize="17" RenderTransformOrigin="0.284,0.636" FontFamily="Lucida Bright"/>
+        <TextBlock HorizontalAlignment="Left" Margin="373,539,0,0" TextWrapping="Wrap" Text="Procent masy hamującej" VerticalAlignment="Top" FontSize="17" RenderTransformOrigin="0.284,0.636" FontFamily="Lucida Bright"/>
+        <TextBlock HorizontalAlignment="Left" Margin="672,542,0,0" TextWrapping="Wrap" Text="Wilgotność powietrza" VerticalAlignment="Top" FontSize="17" RenderTransformOrigin="0.284,0.636" FontFamily="Lucida Bright"/>
+        <TextBlock HorizontalAlignment="Left" Margin="941,539,0,0" TextWrapping="Wrap" Text="Prędkość poprzednika" VerticalAlignment="Top" FontSize="17" RenderTransformOrigin="0.284,0.636" FontFamily="Lucida Bright"/>
+        <TextBlock HorizontalAlignment="Left" Margin="1196,539,0,0" TextWrapping="Wrap" Text="Odległość do poprzednika" VerticalAlignment="Top" FontSize="17" RenderTransformOrigin="0.284,0.636" FontFamily="Lucida Bright"/>
     </Grid>
 </Page>
